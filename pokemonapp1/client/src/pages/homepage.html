@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pokémon App Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Press Start 2P', cursive;
+      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+      color: #333;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    header {
+      padding: 1rem 0;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #ffcb05;
+      text-shadow: 2px 2px #2a75bb;
+    }
+
+    .hero {
+      margin-top: 2rem;
+    }
+
+    .hero img {
+      width: 150px;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .cta {
+      margin-top: 2rem;
+    }
+
+    .cta a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      margin: 0.5rem;
+      background-color: #ffcb05;
+      color: #2a75bb;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .cta a:hover {
+      background-color: #f5b800;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to PokéTracker</h1>
+  </header>
+
+  <section class="hero">
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="Pikachu">
+    <p>Catch, collect, and learn everything about Pokémon!</p>
+  </section>
+
+  <section class="cta">
+    <a href="/signup">Get Started</a>
+    <a href="/login">Log In</a>
+  </section>
+</body>
+</html>
