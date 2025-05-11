@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import auth from '../utils/auth';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -24,6 +25,7 @@ const Login = () => {
       })
       .then((data) => {
         console.log('Login successful:', data);
+        auth.login(data.token)
         // Handle successful login (e.g., save token, redirect)
       })
       .catch((error) => {

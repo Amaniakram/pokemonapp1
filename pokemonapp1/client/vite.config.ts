@@ -7,4 +7,11 @@ export default defineConfig({
   css: {
     postcss: './postcss.config.js',
   },
+  server: {
+    proxy: {
+      "/auth/login": {
+        target: "http://localhost:5000"
+      }
+    }
+  }
 });

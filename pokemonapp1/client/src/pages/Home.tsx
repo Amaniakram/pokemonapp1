@@ -2,7 +2,8 @@ import { useState, useEffect, useLayoutEffect } from "react";
 import { retrieveUsers } from "../api/userAPI";
 import type { UserData } from "../interfaces/UserData";
 import ErrorPage from "./ErrorPage";
-import UserList from '../component/Users';
+// import UserList from '../component/Users';
+import Pokemon from "./Pokemon";
 import auth from '../utils/auth';
 
 const Home = () => {
@@ -11,11 +12,11 @@ const Home = () => {
     const [error, setError] = useState(false);
     const [loginCheck, setLoginCheck] = useState(false);
 
-    useEffect(() => {
-        if (loginCheck) {
-            fetchUsers();
-        }
-    }, [loginCheck]);
+    // useEffect(() => {
+    //     if (loginCheck) {
+    //         fetchUsers();
+    //     }
+    // }, [loginCheck]);
 
     useLayoutEffect(() => {
         checkLogin();
@@ -47,11 +48,11 @@ const Home = () => {
                 !loginCheck ? (
                     <div className='login-notice'>
                         <h1>
-                            Login to view all your friends!
+                            Login to view all your pokemons!
                         </h1>
                     </div>
                 ) : (
-                    <UserList users={users} />
+                    <Pokemon />
                 )}
         </>
     );
