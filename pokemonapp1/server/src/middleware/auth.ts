@@ -5,11 +5,18 @@ interface JwtPayload {
   username: string;
 }
 
+declare global {
+  namespace Express {
+    interface Request {
+      user?: JwtPayload;
+    }
+  }
+}
 export const authenticateToken = (
   req: any,
   res: Response,
   next: NextFunction
-) => {
+): void  => {
   const authHeader = req.headers.authorization;
 
   if (authHeader) {

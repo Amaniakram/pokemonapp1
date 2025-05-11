@@ -5,8 +5,7 @@ import {
   createPokemon,
   updatePokemon,
   deletePokemon,
-  searchPokemon
-} from '../../controllers/pokemon-controller'; // Make sure your controller file exists
+  searchPokemon} from '../../controllers/pokemonController'; // Make sure your controller file exists
 import { authenticateToken } from '../../middleware/auth';
 
 const pokemonRouter = Router();
