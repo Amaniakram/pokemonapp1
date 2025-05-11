@@ -12,7 +12,7 @@ interface PokemonAttributes {
 interface PokemonCreationAttributes extends Optional<PokemonAttributes, 'id'> {}
 
 export class Pokemon extends Model<PokemonAttributes, PokemonCreationAttributes> implements PokemonAttributes {
-  static findById(id: string) {
+  static findById(_id: string) {
     throw new Error('Method not implemented.');
   }
   public id!: number;
