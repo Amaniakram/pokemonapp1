@@ -1,0 +1,134 @@
+Test Cases: Profile Access and Data Retrieval - Pokémon App
+
+This document outlines test cases for verifying the Profile Access and Data Retrieval Functionality in the Pokémon App, ensuring that authenticated users can securely view, update, and retrieve their profile data and quiz-based Pokémon results.
+
+Table of Contents:
+
+-Overview
+
+-Test Environment
+
+-Test Cases
+
+-Common Issues
+
+Overview
+Profile functionality enables users to:
+
+Log in and access their personal dashboard.
+
+View quiz history and favorite Pokémon.
+
+Edit account information.
+
+Retrieve quiz-based recommendations.
+
+These test cases ensure data security, correctness of data retrieval, and access control using JWT tokens.
+
+Test Environment
+API Base URL: /api/users
+
+Authentication: JWT (JSON Web Token)
+
+Required Headers:
+Authorization: Bearer <jwt_token>
+
+Test Cases
+1. ✅ Access Profile With Valid Token
+Description: Ensure an authenticated user can access their profile.
+Endpoint: GET /api/users/profile
+Expected Response:
+
+200 OK
+
+JSON with user info:
+{
+  "id": "user123",
+  "username": "AshKetchum",
+  "email": "ash@pallet.com",
+  "favorites": ["pikachu", "charizard"],
+  "quizHistory": [{ "result": "Fire-type Trainer", "date": "2025-05-01" }]
+}
+
+2. ❌ Access Profile Without Token
+Description: Ensure users without a valid token are denied access.
+Endpoint: GET /api/users/profile
+Expected Response:
+
+401 Unauthorized
+
+JSON:
+{ "error": "Unauthorized access - token missing or invalid" }
+
+3. ✅ Update Profile Info
+Description: User updates username or email.
+Endpoint: PUT /api/users/profile
+Payload:
+{
+  "username": "AshKetchum2",
+  "email": "ash2@pallet.com"
+}
+
+Expected Response:
+
+-200 OK
+
+-JSON:
+{ "message": "Profile updated successfully" }
+
+4. ✅ Retrieve Favorite Pokémon
+Description: Return the list of user’s saved favorite Pokémon.
+Endpoint: GET /api/users/favorites
+Expected Response:
+
+-200 OK
+
+-JSON:
+{
+  "favorites": ["bulbasaur", "lucario", "gengar"]
+}
+
+5. ✅ Retrieve Quiz Result History
+Description: Display all past quiz results associated with the user.
+Endpoint: GET /api/users/quiz-history
+Expected Response:
+
+-200 OK
+
+-JSON:
+[
+  { "result": "Water-type Trainer", "date": "2025-04-10" },
+  { "result": "Flying-type Trainer", "date": "2025-03-15" }
+]
+
+6. ❌ Attempt to Update Profile With Invalid Token
+Description: Ensure token validation on update route.
+Endpoint: PUT /api/users/profile
+Expected Response:
+
+-401 Unauthorized
+
+-JSON:
+{ "error": "Invalid or expired token" }
+
+7. ❌ Submit Incomplete Update Payload
+Description: Prevent update if required fields are missing or malformed.
+Payload:
+{
+  "username": ""
+}
+
+Expected Response:
+
+-400 Bad Request
+
+-JSON:
+{ "error": "Username cannot be empty" }
+
+Common Issues:
+| **Issue**                        | **Solution**                                                     |
+| -------------------------------- | ---------------------------------------------------------------- |
+| Token Expiry                     | Prompt user to reauthenticate                                    |
+| Case-Sensitivity in Favorites    | Normalize Pokémon names for consistent comparison                |
+| Quiz Results Not Stored Properly | Ensure backend stores timestamped results                        |
+| Multiple Profile Updates Fail    | Validate payload and use partial update (PATCH) where applicable |

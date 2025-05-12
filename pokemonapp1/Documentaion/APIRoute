@@ -1,0 +1,194 @@
+API Route Documentation - PokéAPI
+
+This document provides an overview of all backend API routes, including their HTTP methods, expected inputs (parameters, body data), outputs (responses, status codes), and JWT authentication usage for protected routes.
+
+Table of Contents:
+
+-Authentication
+
+-Trainer Routes
+
+-Pokemon Routes
+
+-Team Routes
+
+-Using JWT Authentication
+
+-Common Responses
+
+Authentication
+Login
+URL: /api/auth/login
+Method: POST
+Description: Authenticates the trainer and returns a JWT token.
+
+Request Body:
+{
+  "UserName": "JollyGuru",
+  "password": "password"
+}
+
+Response:
+
+Success (200):
+{
+  "token": "jwt_token_string"
+}
+
+Failure (401):
+{
+  "error": "Incorrect email or password"
+}
+
+Register
+URL: /api/auth/register
+Method: POST
+Description: Registers a new trainer and returns a JWT token.
+
+Request Body:
+
+{
+  "name": "Ash Ketchum",
+  "email": "ash@example.com",
+  "password": "pikachu123",
+  "confirmPassword": "pikachu123"
+}
+
+Success (201):
+{
+  "message": "Trainer registered successfully",
+  "token": "jwt_token_string"
+}
+
+Failure (400):
+{
+  "error": "Password confirmation does not match"
+}
+
+Trainer Routes
+Get Trainer Profile
+URL: /api/trainers/:id
+Method: GET
+Description: Retrieves the profile of an authenticated trainer.
+Headers:
+Authorization: Bearer jwt_token_string
+
+Response:
+
+Success (200):
+{
+  "id": 1,
+  "name": "Ash Ketchum",
+  "email": "ash@example.com",
+  "joinedAt": "2025-01-01T10:00:00Z"
+}
+Failure (401):
+{
+  "error": "Unauthorized"
+}
+
+Pokemon Routes
+Get All Pokémon
+URL: /api/pokemon
+Method: GET
+Description: Retrieves a list of all Pokémon in the Pokédex.
+
+Response:
+
+Success (200):
+[
+  {
+    "id": 25,
+    "name": "Pikachu",
+    "type": ["Electric"],
+    "abilities": ["Static", "Lightning Rod"]
+  },
+  {
+    "id": 4,
+    "name": "Charmander",
+    "type": ["Fire"],
+    "abilities": ["Blaze", "Solar Power"]
+  }
+]
+Failure (500):
+{
+  "error": "Failed to fetch Pokémon data"
+}
+Get Pokémon by ID
+URL: /api/pokemon/:id
+Method: GET
+Description: Retrieves information about a specific Pokémon by its ID.
+
+Response:
+
+Success (200):
+{
+  "id": 25,
+  "name": "Pikachu",
+  "type": ["Electric"],
+  "stats": {
+    "hp": 35,
+    "attack": 55,
+    "defense": 40,
+    "speed": 90
+  }
+}
+
+Failure (404):
+{
+  "error": "Pokémon not found"
+}
+
+Team Routes
+Get Trainer's Team
+URL: /api/trainers/:id/team
+Method: GET
+Description: Retrieves the current Pokémon team of a specific trainer.
+Headers:
+
+Authorization: Bearer jwt_token_string
+
+Response:
+
+Success (200):
+{
+  "trainerId": 1,
+  "team": [
+    { "id": 25, "name": "Pikachu" },
+    { "id": 6, "name": "Charizard" }
+  ]
+}
+
+Failure (401):
+{
+  "error": "Unauthorized"
+}
+
+Using JWT Authentication
+Step 1: Log In to Obtain a Token
+Use the /api/auth/login endpoint to log in and receive a JWT token.
+
+Step 2: Include the Token in Requests
+Add the following header to all protected routes:
+
+Authorization: Bearer jwt_token_string
+
+Step 3: Handle Token Expiry
+Tokens are valid for a limited time (e.g., 1 hour). If a token expires, the system will respond with a 401 Unauthorized error. Log in again to obtain a new token.
+
+Common Responses
+
+| **Status Code** | **Description**                       |
+| --------------- | ------------------------------------- |
+| 200             | Request was successful.               |
+| 201             | Resource was created.                 |
+| 400             | Bad request (e.g., validation error). |
+| 401             | Unauthorized (invalid credentials).   |
+| 404             | Resource not found.                   |
+| 500             | Unexpected server error.              |
+
+
+This documentation provides a comprehensive overview of the backend API and how to integrate with it using JWT authentication. For any questions, please contact the development team.
+
+
+
