@@ -4,23 +4,25 @@ interface PokemonAttributes {
   id: number;
   pokemonName: string;
   pokemonType:string;
-  pokemonHP: number;
-  pokemonAbility: string;
-  scorchingFire: number;
+  pokemonOrder: number;
+  pokemonAPIId: number;
+  pokemonImage: string;
+  pokemonWeight: number;
+  userId: number;
 }
 
 interface PokemonCreationAttributes extends Optional<PokemonAttributes, 'id'> {}
 
 export class Pokemon extends Model<PokemonAttributes, PokemonCreationAttributes> implements PokemonAttributes {
-  static findById(_id: string) {
-    throw new Error('Method not implemented.');
-  }
+
   public id!: number;
   public pokemonName!: string;
   pokemonType!:string;
-  pokemonHP!: number;
-  pokemonAbility!: string;
-  scorchingFire!: number;   
+  pokemonOrder!: number;
+  pokemonAPIId!: number;
+  pokemonImage!: string;
+  pokemonWeight!: number;  
+  userId!: number; 
 }
 
 export function PokemonFactory(sequelize: Sequelize): typeof Pokemon {
@@ -37,21 +39,26 @@ export function PokemonFactory(sequelize: Sequelize): typeof Pokemon {
       },
       pokemonType :{
         type: DataTypes.STRING,
-        allowNull: false,
+      
       },
-      pokemonHP : {
+      pokemonOrder : {
         type : DataTypes.INTEGER,
-        allowNull: false,
-
+       
       },
-      pokemonAbility: {
+      pokemonAPIId: {
+        type: DataTypes.INTEGER,
+      },
+      pokemonImage : {
         type: DataTypes.STRING,
-        allowNull: false, 
+      
       },
-      scorchingFire: {
+      pokemonWeight: {
         type : DataTypes.INTEGER,
-        allowNull: false,
+     
       },
+      userId: {
+        type : DataTypes.INTEGER,
+      }
     },
     {
       tableName: 'pokemon',

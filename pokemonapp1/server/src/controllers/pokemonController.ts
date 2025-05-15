@@ -1,11 +1,34 @@
 import { Request, Response } from 'express';
 import { Pokemon } from '../models/pokemon.js';
 import { Op } from 'sequelize'; // Add this import for Op
+import { User } from '../models/index.js';
 
 // GET /api/pokemon - Fetch all Pokémon
 export const getAllPokemon = async (_req: Request, res: Response) => {
   try {
     const pokemons = await Pokemon.findAll();
+    res.json({ data: pokemons });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch Pokémon list', error: err });
+  }
+};
+
+export const getFavorites = async (req: Request, res: Response) => {
+  try {
+    console.log(req?.user)
+    const currentUser = await User.findOne({
+      where: {
+        username: req?.user?.username
+      }
+    })
+
+    console.log(currentUser)
+    const pokemons = await Pokemon.findAll({
+      where: {
+        userId: currentUser?.id
+      }
+    });
+    console.log(pokemons)
     res.json({ data: pokemons });
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch Pokémon list', error: err });
@@ -34,15 +57,27 @@ export const getPokemonById = async (req: Request, res: Response): Promise<void>
 // POST /api/pokemon - Create a new Pokémon
 export const createPokemon = async (req: Request, res: Response) => {
   try {
-    const { pokemonName, pokemonType, pokemonHP, pokemonAbility, scorchingFire } = req.body;
+    const currentUser = await User.findOne({
+      where: {
+        username: req?.user?.username
+      }
+    });
+
+    console.log(currentUser)
+
+    const userId = currentUser?.id || 0;
+
+
+    const { pokemonName, pokemonType, pokemonOrder, pokemonAPIId, pokemonImage, pokemonWeight } = req.body;
 
     if (!pokemonName || !pokemonType) {
        res.status(400).json({ message: 'Name and type are required.' });
     }
 
-    const newPokemon = await Pokemon.create({pokemonName, pokemonType,  pokemonHP, pokemonAbility, scorchingFire });
+    const newPokemon = await Pokemon.create({pokemonName, pokemonType,  pokemonOrder, pokemonAPIId, pokemonImage, pokemonWeight, userId });
     res.status(201).json({ data: newPokemon });
   } catch (err) {
+    console.log(err)
     console.error('Error creating Pokémon:', err);
     res.status(500).json({ message: 'Failed to create Pokémon', error: err });
   }
@@ -52,7 +87,7 @@ export const createPokemon = async (req: Request, res: Response) => {
 export const updatePokemon = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { pokemonName, pokemonType, pokemonHP, pokemonAbility, scorchingFire } = req.body;
+    const { pokemonName, pokemonType, pokemonOrder, pokemonAPIId, pokemonImage, pokemonWeight } = req.body;
 
     if (!pokemonName || !pokemonType) {
       res.status(400).json({ message: 'Name and type are required.' });
@@ -70,9 +105,10 @@ export const updatePokemon = async (req: Request, res: Response) => {
     await pokemon.update({
       pokemonName,
       pokemonType,
-      pokemonHP,
-      pokemonAbility,
-      scorchingFire
+      pokemonOrder,
+      pokemonAPIId,
+      pokemonImage,
+      pokemonWeight,
     });
 
     res.status(200).json({ data: pokemon });

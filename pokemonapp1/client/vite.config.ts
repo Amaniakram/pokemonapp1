@@ -11,6 +11,9 @@ export default defineConfig({
     proxy: {
       "/auth/login": {
         target: "http://localhost:5000"
+      },
+       "/api/pokemons": {
+        target: "http://localhost:5000"
       }
     }
   }

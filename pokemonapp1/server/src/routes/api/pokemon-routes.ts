@@ -5,13 +5,17 @@ import {
   createPokemon,
   updatePokemon,
   deletePokemon,
-  searchPokemon} from '../../controllers/pokemonController'; // Make sure your controller file exists
-import { authenticateToken } from '../../middleware/auth';
+  getFavorites,
+  searchPokemon} from '../../controllers/pokemonController.js'; // Make sure your controller file exists
+import { authenticateToken } from '../../middleware/auth.js';
 
 const pokemonRouter = Router();
 
 // GET /pokemon - Get all Pokémon
 pokemonRouter.get('/', getAllPokemon);
+
+pokemonRouter.get('/favorites', authenticateToken, getFavorites);
+
 
 // GET /pokemon/:id - Get a specific Pokémon by ID
 pokemonRouter.get('/:id', getPokemonById);
