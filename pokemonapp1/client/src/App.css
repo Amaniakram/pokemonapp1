@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Your custom styles here */
+
+body {
+  background-color: #e80fd627; /* light gray background */
+  font-family: 'Inter', sans-serif; /* or whatever font you prefer */
+}
+
+h1, h2, h3 {
+  color: #425468a0; /* a nice blue for headings */
+}
+
+.button-primary {
+  @apply bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700;
+}

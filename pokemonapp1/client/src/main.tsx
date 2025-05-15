@@ -7,7 +7,6 @@ import App from './App';
 import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Favorites from './pages/Favorites';
 
 const router = createBrowserRouter([
   {
@@ -24,8 +23,8 @@ const router = createBrowserRouter([
         element: <Login />,
       },
             {
-        path: '/favorites',
-        element: <Favorites />,
+        path: '/favorties',
+        element: <Login />,
       },
     ],
   },

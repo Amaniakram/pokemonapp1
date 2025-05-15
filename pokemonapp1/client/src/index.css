@@ -7,8 +7,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(225, 19, 236, 0.566);
+  background-color: #2424241e;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -18,11 +18,11 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #b1b3d8;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #8487c7;
 }
 
 body {
@@ -69,3 +69,18 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.container-center {
+  display: flex;
+  flex-direction: column;  /* stack vertically */
+  justify-content: center; /* vertical centering */
+  align-items: center;     /* horizontal centering */
+  height: 100vh;           /* full viewport height */
+  text-align: center;
+  gap: 10px;               /* spacing between items */
+}
+

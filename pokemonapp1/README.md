@@ -12,8 +12,6 @@ Features:
 
 -Favorites System: Users can favorite Pokémon to revisit later.
 
--Personality-Based Quiz: Matches users with Pokémon based on preferences like type, size, combat style, and evolution.
-
 -Responsive Design: Fully mobile-friendly interface using Tailwind CSS.
 
 -Profile Dashboard: View profile, quiz history, and saved Pokémon.

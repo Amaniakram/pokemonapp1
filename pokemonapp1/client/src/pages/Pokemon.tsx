@@ -72,6 +72,7 @@ function Pokemon() {
 
 
     return (
+        
         <>
         <a href="/favorites">
         <button>Go to Favorites</button>
